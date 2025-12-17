@@ -5,6 +5,8 @@ const sqlite3 = require("sqlite3");
 const { open } = require("sqlite");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const dotenv = require('dotenv')
+dotenv.cong()
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
@@ -25,9 +27,11 @@ const initializeServerAndDatabase = async () => {
   }
 };
 
+const PORT = process.env.PORT || 5000
+
 initializeServerAndDatabase();
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("Server is Running at http://localhost:3000");
 });
 
