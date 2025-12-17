@@ -6,7 +6,7 @@ const { open } = require("sqlite");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require('dotenv')
-dotenv.cong()
+dotenv.config()
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
@@ -199,5 +199,3 @@ app.delete(
     response.send({ Success: "Task Deleted Successfully" });
   }
 );
-
-export default app;
