@@ -5,8 +5,8 @@ const sqlite3 = require("sqlite3");
 const { open } = require("sqlite");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const dotenv = require('dotenv')
-dotenv.config()
+const dotenv = require("dotenv");
+dotenv.config();
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
@@ -28,7 +28,7 @@ const initializeServerAndDatabase = async () => {
   }
 };
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 initializeServerAndDatabase();
 
@@ -116,9 +116,9 @@ app.post("/login", async (request, response) => {
 
 app.get("/projects", authenticateToken, async (request, response) => {
   const { userId } = request;
-  const getProjectsQuery = `SELECT * FROM projects`;
+  const getProjectsQuery = `SELECT * FROM projects where user_id=${userId}`;
   const dbResponse = await db.all(getProjectsQuery);
-  console.log(dbResponse)
+  console.log(dbResponse);
   response.send(dbResponse);
 });
 
