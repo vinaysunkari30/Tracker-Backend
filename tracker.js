@@ -116,7 +116,7 @@ app.post("/login", async (request, response) => {
 
 app.get("/projects", authenticateToken, async (request, response) => {
   const { userId } = request;
-  const getProjectsQuery = `SELECT * FROM projects where user_id=${userId}`;
+  const getProjectsQuery = `SELECT * FROM projects where user_id='${userId}'`;
   const dbResponse = await db.all(getProjectsQuery);
   console.log(dbResponse);
   response.send(dbResponse);
