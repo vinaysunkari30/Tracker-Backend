@@ -21,6 +21,7 @@ const initializeServerAndDatabase = async () => {
       filename: dbPath,
       driver: sqlite3.Database,
     });
+    await db.run("PRAGMA foreign_keys = ON;");
   } catch (e) {
     console.log(`DB Error: ${e.message}`);
     process.exit(1);
@@ -32,7 +33,7 @@ const PORT = process.env.PORT || 5000
 initializeServerAndDatabase();
 
 app.listen(PORT, () => {
-  console.log("Server is Running at http://localhost:3000");
+  console.log("Server is Running at http://localhost:5000");
 });
 
 app.get("/", async (req, res) => {
@@ -115,8 +116,9 @@ app.post("/login", async (request, response) => {
 
 app.get("/projects", authenticateToken, async (request, response) => {
   const { userId } = request;
-  const getProjectsQuery = `SELECT ROW_NUMBER() OVER (ORDER BY id) AS serialId,* FROM projects WHERE user_id = '${userId}';`;
+  const getProjectsQuery = `SELECT * FROM projects`;
   const dbResponse = await db.all(getProjectsQuery);
+  console.log(dbResponse)
   response.send(dbResponse);
 });
 
